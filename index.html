@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Reviews Inc.</title>
+  <style>
+    :root {
+      --bg: #f5f6fb;
+      --surface: #ffffff;
+      --text: #1c1f35;
+      --accent: #5b6efc;
+      --accent-dark: #3b46d9;
+      --muted: #6e7487;
+      --border: #dfe2ee;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #5b6efc 0%, #7d82ff 100%);
+      color: white;
+      padding: 3rem 1.5rem 4rem;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(2.5rem, 4vw, 4rem);
+      letter-spacing: -0.04em;
+    }
+
+    header p {
+      max-width: 700px;
+      margin: 1rem auto 0;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.9);
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      padding: 0.75rem 1.25rem;
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 999px;
+      transition: background 0.25s ease, transform 0.25s ease;
+    }
+
+    nav a:hover {
+      background: rgba(255,255,255,0.15);
+      transform: translateY(-1px);
+    }
+
+    main {
+      padding: 3rem 1.5rem 4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .section-heading h2 {
+      margin: 0;
+      font-size: 2rem;
+    }
+
+    .intro {
+      color: var(--muted);
+      max-width: 720px;
+      margin-bottom: 2rem;
+    }
+
+    .review-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 1.75rem;
+      box-shadow: 0 15px 35px rgba(79, 92, 170, 0.08);
+      min-height: 320px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card h3 {
+      margin: 0 0 0.75rem;
+      font-size: 1.3rem;
+    }
+
+    .card .meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 0.5rem;
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
+    }
+
+    .card p {
+      margin: 0 0 1.5rem;
+      color: var(--text);
+      flex-grow: 1;
+    }
+
+    .reviewer {
+      margin: 0;
+      color: var(--accent-dark);
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .card span {
+      display: inline-block;
+      background: #eef0ff;
+      color: #3b46d9;
+      border-radius: 999px;
+      padding: 0.45rem 0.75rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+    }
+
+    .about,
+    .contact {
+      margin-top: 3rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 2rem;
+    }
+
+    .about p,
+    .contact p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    .contact-card {
+      background: #f7f8ff;
+      border-radius: 18px;
+      padding: 1.2rem;
+      border: 1px solid rgba(91,110,252,0.15);
+    }
+
+    .contributors {
+      margin-top: 1.5rem;
+    }
+
+    .contributors ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .contributors li {
+      background: #f7f8ff;
+      border-radius: 18px;
+      padding: 0.9rem 1rem;
+      border: 1px solid rgba(91,110,252,0.15);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .contact-card h3 {
+      margin: 0 0 0.5rem;
+      font-size: 1.05rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1.5rem 1rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    @media (max-width: 640px) {
+      header {
+        padding: 2.5rem 1rem 3rem;
+      }
+
+      .card {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <p>Trusted reviews for young readers, student projects, and family favorites</p>
+    <h1>Book Reviews Inc.</h1>
+    <p>Discover thoughtful book reviews, reading recommendations, and stories that help you choose your next favorite book.</p>
+    <nav>
+      <a href="#reviews">Top Reviews</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="reviews">
+      <div class="section-heading">
+        <h2>Featured Book Reviews</h2>
+      </div>
+      <p class="intro">Fresh reviews from Book Reviews Inc. highlight modern fiction, adventure tales, mystery novels, and inspiring nonfiction titles.</p>
+      <div class="review-grid">
+        <article class="card">
+          <div>
+            <h3>Counting by 7s</h3>
+            <div class="meta"><span>Holly Goldberg Sloan</span><span>Rating: 4.8/5</span></div>
+            <p>A moving story about resilience, belonging, and the power of kindness. Perfect for readers who care about character growth and quiet hope.</p>
+            <p class="reviewer">Review by Justin Emuekhare</p>
+          </div>
+          <span>Heartfelt Story</span>
+        </article>
+
+        <article class="card">
+          <div>
+            <h3>Ghost</h3>
+            <div class="meta"><span>Jason Reynolds</span><span>Rating: 4.7/5</span></div>
+            <p>An energetic sports story about a boy learning to run toward his future. Great for readers who enjoy fast pacing and strong characters.</p>
+            <p class="reviewer">Review by Demi Tobun</p>
+          </div>
+          <span>Powerful Debut</span>
+        </article>
+
+        <article class="card">
+          <div>
+            <h3>Patina</h3>
+            <div class="meta"><span>Jason Reynolds</span><span>Rating: 4.8/5</span></div>
+            <p>A thoughtful follow-up to the Track series with courage, family, and athletic dreams. Ideal for readers who love realistic young characters.</p>
+            <p class="reviewer">Review by Demi Tobun</p>
+          </div>
+          <span>Track Team Tale</span>
+        </article>
+
+        <article class="card">
+          <div>
+            <h3>Sunny</h3>
+            <div class="meta"><span>Jason Reynolds</span><span>Rating: 4.7/5</span></div>
+            <p>A heartfelt story about a gifted runner finding strength in family and community. Great for fans of uplifting narratives and strong friendships.</p>
+            <p class="reviewer">Review by Demi Tobun</p>
+          </div>
+          <span>Strong Finale</span>
+        </article>
+
+        <article class="card">
+          <div>
+            <h3>Lu</h3>
+            <div class="meta"><span>Jason Reynolds</span><span>Rating: 4.6/5</span></div>
+            <p>An exciting story of talent, trust, and the drive to keep moving forward. Perfect for readers who enjoy sports and emotional friendships.</p>
+            <p class="reviewer">Review by Demi Tobun</p>
+          </div>
+          <span>Team Spirit</span>
+        </article>
+
+        <article class="card">
+          <div>
+            <h3>Coach</h3>
+            <div class="meta"><span>Jason Reynolds</span><span>Rating: 4.7/5</span></div>
+            <p>A moving novel about leadership, second chances, and what it means to be a role model. Ideal for readers who appreciate heartfelt character journeys.</p>
+            <p class="reviewer">Review by Demi Tobun</p>
+          </div>
+          <span>Inspirational Read</span>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="section-heading">
+        <h2>About Book Reviews Inc.</h2>
+      </div>
+      <p>Book Reviews Inc. is a friendly, easy-to-read website made for students and families. Every review is written to help readers find books they will love and understand what makes each story special.</p>
+      <div class="contributors">
+        <h3>Contributors</h3>
+        <ul>
+          <li>Justin Emuekhare</li>
+          <li>Anna Sziligyi-Kiss</li>
+          <li>Eden Watters</li>
+          <li>Zein Mohammed</li>
+          <li>Karim Mohammed</li>
+          <li>Mohammed Abdi-Ahmed</li>
+          <li>Rayyan Bello</li>
+          <li>Isaiah Buenaventura</li>
+          <li>Dorsa Choromi</li>
+          <li>Kamsi DavidsonChime</li>
+          <li>Candice Guo</li>
+          <li>Sophie Han</li>
+          <li>LiMing Chunhawiksit Chanyapat</li>
+          <li>Demi Tobun</li>
+          <li>Yniego Racoma</li>
+          <li>Kyra Saxena</li>
+          <li>Aaman Safin</li>
+          <li>Saisha Rathore</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="contact" class="contact">
+      <div class="section-heading">
+        <h2>Contact & Ideas</h2>
+      </div>
+      <p>Want to suggest a book or ask for a review? Reach out using one of the options below.</p>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <h3>Email</h3>
+          <p>hello@bookreviewsinc.com</p>
+        </div>
+        <div class="contact-card">
+          <h3>School Project</h3>
+          <p>Perfect for book reports, reading logs, and class reading recommendations.</p>
+        </div>
+        <div class="contact-card">
+          <h3>Follow</h3>
+          <p>Look for new reviews, reading lists, and story ideas every week.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Book Reviews Inc. — helping readers choose the next great story.</p>
+    <p style="margin-top:0.5rem; color: var(--muted); font-size:0.9rem;">By Justin Emuekhare 6J June 16th 2026</p>
+  </footer>
+</body>
+</html>
